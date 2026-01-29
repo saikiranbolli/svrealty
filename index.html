@@ -670,7 +670,7 @@ document.getElementById("generate_lead").setAttribute("disabled", true);
             formData.append("email", email);
             formData.append("number", number);
 
-            fetch("send.php", {
+            fetch("https://svrealty.co/send.php", {
                 method: "POST",
                 body: formData
             })
@@ -698,5 +698,6 @@ document.getElementById("generate_lead").removeAttribute("disabled");
 
     </script>
 </body>
+
 
 </html>
