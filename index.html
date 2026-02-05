@@ -646,74 +646,53 @@
         });
 
         function getUTMParams() {
-            const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+      utm_term: params.get("utm_term") || "",
+      utm_content: params.get("utm_content") || ""
+    };
+  }
 
-            return {
-                utm_source: params.get("utm_source") || "",
-                utm_medium: params.get("utm_medium") || "",
-                utm_campaign: params.get("utm_campaign") || "",
-                utm_term: params.get("utm_term") || "",
-                utm_content: params.get("utm_content") || ""
-            };
-        }
-        document.getElementById("contactForm").addEventListener("submit", function (e) {
-            e.preventDefault();
+  document.getElementById("leadForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-            const project = document.getElementById("project").value.trim();
-            const name = document.getElementById("senderName").value.trim();
-            const email = document.getElementById("senderEmail").value.trim();
-            const number = document.getElementById("senderNumber").value.trim();
+    const project = document.getElementById("project").value.trim();
+    const name = document.getElementById("senderName").value.trim();
+    const email = document.getElementById("senderEmail").value.trim();
+    const number = document.getElementById("senderNumber").value.trim();
 
-            if (!project || !name || !email || !number) {
-                alert("Please fill all fields.");
-                return;
-            }
+    const utm = getUTMParams();
 
-            if (!/^\d{10}$/.test(number)) {
-                alert("Please enter a valid 10-digit phone number.");
-                return;
-            }
-            document.getElementById("generate_lead").setAttribute("disabled", true);
+    const dateTime = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata"
+    });
 
-            // UTM values
-            const utmData = getUTMParams();
+    // Convert data to URL encoded format
+    const formData = new URLSearchParams({
+      dateTime,
+      project,
+      name,
+      email,
+      number,
+      ...utm
+    });
 
-            // Date & Time
-            const now = new Date();
-		    const dateTime = now.toLocaleString("en-IN", {
-		      timeZone: "Asia/Kolkata"
-		    });
-
-            // Final payload
-            const payload = {
-                dateTime,
-                project,
-                name,
-                email,
-                number,
-                ...utmData
-            };
-
-            // Google Apps Script Web App URL
-            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz5GEFC4KrK63o_jYqjummrZ27MBz-P2lBMVTfL2MX6Z2qNpLtn-ADpxNm2UfKbxzAv/exec";
-
-            fetch(GOOGLE_SHEET_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    alert("Form submitted successfully!");
-                    document.getElementById("contactForm").reset();
-                    window.location.href = "thankyou.html";
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Something went wrong!");
-                });
+    fetch("PASTE_YOUR_WEB_APP_URL_HERE", {
+      method: "POST",
+      body: formData   // ⚠️ NO headers
+    })
+    .then(() => {
+      alert("Form submitted successfully!");
+      document.getElementById("leadForm").reset();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Submission failed");
+    });
+  });
 
             // 1. Send data to PHP
             // const formData = new FormData();
@@ -820,6 +799,7 @@
 
 
 </html>
+
 
 
 
