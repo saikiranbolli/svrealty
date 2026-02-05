@@ -656,7 +656,7 @@
             };
         }
 
-    document.getElementById("leadForm").addEventListener("submit", function (e) {
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
         e.preventDefault();
 
         const project = document.getElementById("project").value.trim();
@@ -686,115 +686,15 @@
         })
         .then(() => {
             alert("Form submitted successfully!");
-            document.getElementById("leadForm").reset();
+            document.getElementById("contactForm").reset();
         })
         .catch(err => {
             console.error(err);
             alert("Submission failed");
         });
     });
-
-            // 1. Send data to PHP
-            // const formData = new FormData();
-            // formData.append("project", project);
-            // formData.append("name", name);
-            // formData.append("email", email);
-            // formData.append("number", number);
-
-            //             fetch("send.php", {
-            //                 method: "POST",
-            //                 body: formData
-            //             })
-            //                 .then(response => response.text())
-            //                 .then(result => {
-            //                     console.log("Server Response:", result);
-
-            //                     // 2. Download the project PDF
-            //                     const pdfFile = `${project}.pdf`;
-            //                     const pdfLink = document.createElement("a");
-            //                     pdfLink.href = pdfFile;
-            //                     pdfLink.download = pdfFile;
-            //                     pdfLink.click();
-            // document.getElementById("generate_lead").removeAttribute("disabled");
-            //                  $("#contactForm")[0].reset();
-            //                  $('#modalContactForm').modal('hide'); 
-            //                 window.location.href = "thankyou.html";
-
-            //                 })
-            //                 .catch(error => {
-            //                     console.error("Form submission error:", error);
-            //                     alert("Something went wrong. Please try again.");
-            //                 });
-        // });
-
     </script>
-    <script>
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     // Listen for when the modal is triggered
-        //     document.querySelectorAll('[data-toggle="modal"]').forEach(function (btn) {
-        //         btn.addEventListener("click", function () {
-        //             // Get the value from data_project attribute
-        //             let projectValue = this.getAttribute("data_project");
-
-        //             // Set it to the input field in the form
-        //             document.querySelector("#modalContactForm #project").value = projectValue;
-        //         });
-        //     });
-        // });
-
-
-//         document.getElementById("contactForm").addEventListener("submit", function (e) {
-//             e.preventDefault();
-
-//             const project = document.getElementById("project").value.trim();
-//             const name = document.getElementById("senderName").value.trim();
-//             const email = document.getElementById("senderEmail").value.trim();
-//             const number = document.getElementById("senderNumber").value.trim();
-
-//             if (!project || !name || !email || !number) {
-//                 alert("Please fill all fields.");
-//                 return;
-//             }
-
-//             if (!/^\d{10}$/.test(number)) {
-//                 alert("Please enter a valid 10-digit phone number.");
-//                 return;
-//             }
-// document.getElementById("generate_lead").setAttribute("disabled", true);
-//             // 1. Send data to PHP
-//             const formData = new FormData();
-//             formData.append("project", project);
-//             formData.append("name", name);
-//             formData.append("email", email);
-//             formData.append("number", number);
-
-//             fetch("https://svrealty.co/send.php", {
-//                 method: "POST",
-//                 body: formData
-//             })
-//                 .then(response => response.text())
-//                 .then(result => {
-//                     console.log("Server Response:", result);
-
-//                     // 2. Download the project PDF
-//                     const pdfFile = `${project}.pdf`;
-//                     const pdfLink = document.createElement("a");
-//                     pdfLink.href = pdfFile;
-//                     pdfLink.download = pdfFile;
-//                     pdfLink.click();
-// document.getElementById("generate_lead").removeAttribute("disabled");
-//                  $("#contactForm")[0].reset();
-//                  $('#modalContactForm').modal('hide'); 
-//                 window.location.href = "thankyou.html";
-                    
-//                 })
-//                 .catch(error => {
-//                     console.error("Form submission error:", error);
-//                     alert("Something went wrong. Please try again.");
-//                 });
-//         });
-
-    </script>
+   
 </body>
 
 
