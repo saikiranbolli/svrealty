@@ -646,53 +646,53 @@
         });
 
         function getUTMParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-      utm_source: params.get("utm_source") || "",
-      utm_medium: params.get("utm_medium") || "",
-      utm_campaign: params.get("utm_campaign") || "",
-      utm_term: params.get("utm_term") || "",
-      utm_content: params.get("utm_content") || ""
-    };
-  }
+            const params = new URLSearchParams(window.location.search);
+            return {
+                utm_source: params.get("utm_source") || "",
+                utm_medium: params.get("utm_medium") || "",
+                utm_campaign: params.get("utm_campaign") || "",
+                utm_term: params.get("utm_term") || "",
+                utm_content: params.get("utm_content") || ""
+            };
+        }
 
-  document.getElementById("leadForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+    document.getElementById("leadForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    const project = document.getElementById("project").value.trim();
-    const name = document.getElementById("senderName").value.trim();
-    const email = document.getElementById("senderEmail").value.trim();
-    const number = document.getElementById("senderNumber").value.trim();
+        const project = document.getElementById("project").value.trim();
+        const name = document.getElementById("senderName").value.trim();
+        const email = document.getElementById("senderEmail").value.trim();
+        const number = document.getElementById("senderNumber").value.trim();
 
-    const utm = getUTMParams();
+        const utm = getUTMParams();
 
-    const dateTime = new Date().toLocaleString("en-IN", {
-      timeZone: "Asia/Kolkata"
+        const dateTime = new Date().toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata"
+        });
+
+        // Convert data to URL encoded format
+        const formData = new URLSearchParams({
+            dateTime,
+            project,
+            name,
+            email,
+            number,
+            ...utm
+        });
+
+        fetch("https://script.google.com/macros/s/AKfycbz5GEFC4KrK63o_jYqjummrZ27MBz-P2lBMVTfL2MX6Z2qNpLtn-ADpxNm2UfKbxzAv/exec", {
+            method: "POST",
+            body: formData   // ⚠️ NO headers
+        })
+        .then(() => {
+            alert("Form submitted successfully!");
+            document.getElementById("leadForm").reset();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Submission failed");
+        });
     });
-
-    // Convert data to URL encoded format
-    const formData = new URLSearchParams({
-      dateTime,
-      project,
-      name,
-      email,
-      number,
-      ...utm
-    });
-
-    fetch("https://script.google.com/macros/s/AKfycbz5GEFC4KrK63o_jYqjummrZ27MBz-P2lBMVTfL2MX6Z2qNpLtn-ADpxNm2UfKbxzAv/exec", {
-      method: "POST",
-      body: formData   // ⚠️ NO headers
-    })
-    .then(() => {
-      alert("Form submitted successfully!");
-      document.getElementById("leadForm").reset();
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Submission failed");
-    });
-  });
 
             // 1. Send data to PHP
             // const formData = new FormData();
@@ -725,7 +725,7 @@
             //                     console.error("Form submission error:", error);
             //                     alert("Something went wrong. Please try again.");
             //                 });
-        });
+        // });
 
     </script>
     <script>
@@ -799,6 +799,7 @@
 
 
 </html>
+
 
 
 
