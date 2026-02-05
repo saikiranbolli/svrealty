@@ -680,8 +680,9 @@
 
             // Date & Time
             const now = new Date();
-            const date = now.toLocaleDateString("en-IN");
-            const time = now.toLocaleTimeString("en-IN");
+		    const dateTime = now.toLocaleString("en-IN", {
+		      timeZone: "Asia/Kolkata"
+		    });
 
             // Final payload
             const payload = {
@@ -819,6 +820,7 @@
 
 
 </html>
+
 
 
 
